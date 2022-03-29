@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<!--<html>-->
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Bill Counter</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#">Welcome to Our Department Store :</a>
+</nav>
+
+    <h1>Total Price and Total Tax</h1>
+    <p th:text="${productList.getTotalPriceReceipt()}"></p>
+
+    <p th:text="${productList.getTotalTaxReceipt()}"></p>
+</body>
+</html>
