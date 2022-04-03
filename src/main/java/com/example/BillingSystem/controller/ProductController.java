@@ -1,56 +1,70 @@
 package com.example.BillingSystem.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import com.example.BillingSystem.repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.BillingSystem.entity.ProductList;
 import com.example.BillingSystem.service.ProductService;
 
-@Controller
+@RestController
 public class ProductController {
 
+    @Autowired
     private ProductService productService;
+    private ProductRepository productRepository;
 
     public ProductController(ProductService productService) {
         super();
         this.productService = productService;
     }
 
+//    public ProductController(ProductRepository productRepository) {
+//        super();
+//        this.productRepository = productRepository;
+//    }
+
     // handler method to handle list products and return mode and view
     @GetMapping("/products")
-    public String listProducts(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
-        return "products";
+    public Iterable<ProductList> listProducts() {
+        return productRepository.findAll();
     }
 
-    @GetMapping("/products/new")
-    public String createProductList(Model model) {
-        ProductList productList = new ProductList();
-        model.addAttribute("product",productList);
-        return "create_product";
+    @PostMapping("/products/new")
+    public ProductList createProductList(@RequestBody ProductList productList) {
+        productService.insert(productList);
+        return productService.saveProduct(productList);
+//        return productRepository.save(productList);
     }
 
-//    @RequestMapping("/Productcontroller")
     @PostMapping("/products")
-    public String saveProduct(@ModelAttribute("product") ProductList productList) {
-        productService.saveProduct(productList);
-        return "redirect:/products";
+    public ProductList saveProduct(@RequestBody ProductList productList) {
+        return productService.saveProduct(productList);
+//        return productRepository.save(productList);
     }
 
-    @GetMapping("/TaxAndTotal")
-    public String CalcTaxandTotal(@ModelAttribute("product") ProductList productList, BindingResult TaxAndTotal, Model model)
-    {
-        model.addAttribute("ProductList",productList);
-        return "TaxAndTotal";
+    @GetMapping("/TotalPrice")
+    public Double CalcTotalPrice(){
+        return productService.calculateTotalPrice();
+//        return productRepository.getTotalPriceReceipt();
+    }
+
+    @GetMapping("/TotalTax")
+    public Double CalcTotalTax(){
+        return productService.calculateTotalTax();
+//        return productRepository.getTotalTaxReceipt();
     }
 
     // handler method to handle delete product request
-    @GetMapping("/products/{id}")
+    @DeleteMapping("/products/{id}")
     public String deleteProduct(@PathVariable Long id) {
-        this.productService.deleteProductById(id);
-        return "redirect:/products";
+        if(productService.isProductExists(id)) {
+            productService.deleteProductById(id);
+            return "Deleted the Product successfully!";
+        }
+        else {
+            return "No such Product to delete from your bill!";
+        }
     }
 
 

@@ -1,12 +1,20 @@
 package com.example.BillingSystem.repository;
 
 import com.example.BillingSystem.entity.ProductList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface ProductRepository extends JpaRepository<ProductList, Long> {
+import java.util.List;
 
+@Repository
+public interface ProductRepository extends CrudRepository<ProductList, Long> {
+
+//    @Autowired
+//    public ProductList productList = new ProductList();
+
+//    Double getTotalPriceReceipt();
+//    Double getTotalTaxReceipt();
 
 }
