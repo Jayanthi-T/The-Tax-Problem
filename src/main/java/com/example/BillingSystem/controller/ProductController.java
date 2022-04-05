@@ -27,7 +27,7 @@ public class ProductController {
     // handler method to handle list products and return mode and view
     @GetMapping("/products")
     public Iterable<ProductList> listProducts() {
-        return productRepository.findAll();
+        return productService.getAllProducts();
     }
 
     @PostMapping("/products/new")
