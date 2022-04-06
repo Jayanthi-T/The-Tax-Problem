@@ -1,6 +1,6 @@
 package com.example.BillingSystem.service.impl;
 
-import com.example.BillingSystem.entity.ProductList;
+import com.example.BillingSystem.entity.Product;
 import com.example.BillingSystem.repository.ProductRepository;
 import com.example.BillingSystem.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductList insert(ProductList productList){
-        return productRepository.save(productList);
+    public Product insert(Product product){
+        return productRepository.save(product);
     }
 
     @Override
-    public List<ProductList> getAllProducts() {
-        return (List<ProductList>) productRepository.findAll();
+    public List<Product> getAllProducts() {
+        return (List<Product>) productRepository.findAll();
     }
 
     @Override
-    public ProductList getProductById(Long id) {
+    public Product getProductById(Long id) {
         return productRepository.findById(id).get();
     }
 
@@ -41,8 +41,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductList saveProduct(ProductList productList) {
-         return productRepository.save(productList);
+    public Product saveProduct(Product product) {
+         return productRepository.save(product);
     }
 
 
@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService {
         AtomicReference<Double> total_price = new AtomicReference<>(0.0);
         AtomicReference<Double> unitPrice = new AtomicReference<>(0.0);
 
-        List<ProductList> productList = getAllProducts();
+        List<Product> productList = getAllProducts();
         productList.forEach(product-> {
 
             if (product.getProductType().contains("imported")) {
@@ -69,7 +69,7 @@ public class ProductServiceImpl implements ProductService {
                     total_tax.updateAndGet(v -> v + (taxPerProduct.get() * product.getQuantity()));
                     total_price.updateAndGet(v -> v + product.getUnitPrice());
 
-//                    total_price.updateAndGet(v -> v + (product.getUnitPrice() + total_tax));
+//                    total_price.updateAndGet(v -> v + (product.getUnitPrice() + total_tax.get()));
                 }
                 else {
                     taxPerProduct.set(product.getUnitPrice() * 0.15);
@@ -93,7 +93,7 @@ public class ProductServiceImpl implements ProductService {
 
         });
 
-        return total_price.get();
+        return total_price.get() + total_tax.get();
 
     }
 
@@ -105,7 +105,7 @@ public class ProductServiceImpl implements ProductService {
         AtomicReference<Double> taxPerProduct = new AtomicReference<>(0.0);
         AtomicReference<Double> unitPrice = new AtomicReference<>(0.0);
 
-        List<ProductList> productList = getAllProducts();
+        List<Product> productList = getAllProducts();
         productList.forEach(product-> {
 
 

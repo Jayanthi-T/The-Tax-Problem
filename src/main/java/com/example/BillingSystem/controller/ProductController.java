@@ -4,7 +4,7 @@ import com.example.BillingSystem.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.BillingSystem.entity.ProductList;
+import com.example.BillingSystem.entity.Product;
 import com.example.BillingSystem.service.ProductService;
 
 @RestController
@@ -26,20 +26,20 @@ public class ProductController {
 
     // handler method to handle list products and return mode and view
     @GetMapping("/products")
-    public Iterable<ProductList> listProducts() {
+    public Iterable<Product> listProducts() {
         return productService.getAllProducts();
     }
 
     @PostMapping("/products/new")
-    public ProductList createProductList(@RequestBody ProductList productList) {
-        productService.insert(productList);
-        return productService.saveProduct(productList);
+    public Product createProductList(@RequestBody Product product) {
+        productService.insert(product);
+        return productService.saveProduct(product);
 //        return productRepository.save(productList);
     }
 
     @PostMapping("/products")
-    public ProductList saveProduct(@RequestBody ProductList productList) {
-        return productService.saveProduct(productList);
+    public Product saveProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
 //        return productRepository.save(productList);
     }
 

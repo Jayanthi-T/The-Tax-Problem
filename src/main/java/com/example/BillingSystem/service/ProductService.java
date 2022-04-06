@@ -1,23 +1,23 @@
 package com.example.BillingSystem.service;
 
-import com.example.BillingSystem.entity.ProductList;
+import com.example.BillingSystem.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
-    ProductList insert(ProductList productList);
+    Product insert(Product productList);
 
-    List<ProductList> getAllProducts();
+    List<Product> getAllProducts();
 
     boolean isProductExists(Long id);
 
-    ProductList saveProduct(ProductList productList);
+    Product saveProduct(Product product);
 
     Double calculateTotalPrice();
 
     Double calculateTotalTax();
     
-    ProductList getProductById(Long id);
+    Product getProductById(Long id);
 
     void deleteProductById(Long id);
 }

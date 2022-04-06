@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "products")
-public class ProductList {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,12 +24,12 @@ public class ProductList {
     @Column(name = "unitPrice")
     private Double unitPrice;
 
-    public ProductList() { //Default constructor
+    public Product() { //Default constructor
 
     }
 
     //Constructor
-    public ProductList(String productType, Integer quantity, Double unitPrice) {
+    public Product(String productType, Integer quantity, Double unitPrice) {
         super();
         this.productType = productType;
         this.quantity = quantity;
@@ -87,13 +87,13 @@ public class ProductList {
                 taxPerProduct = unitPrice * 0.05;
                 unitPrice = (unitPrice + taxPerProduct) * quantity;
                 total_tax += (taxPerProduct * quantity);
-                total_price += unitPrice;
+                total_price += unitPrice + total_tax;
             }
             else {
                 taxPerProduct = unitPrice * 0.15;
                 unitPrice = (unitPrice + taxPerProduct)*quantity;
                 total_tax += (taxPerProduct * quantity);
-                total_price += unitPrice;
+                total_price += unitPrice + total_tax;
             }
         }
         else {
@@ -105,7 +105,7 @@ public class ProductList {
                 taxPerProduct = unitPrice * 0.10;
                 unitPrice = (unitPrice + taxPerProduct)*quantity;
                 total_tax += (taxPerProduct * quantity);
-                total_price += unitPrice;
+                total_price += unitPrice + total_tax;
             }
         }
         return total_price;
