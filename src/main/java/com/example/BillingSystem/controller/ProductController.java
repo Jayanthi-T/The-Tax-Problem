@@ -32,7 +32,7 @@ public class ProductController {
 
     @PostMapping("/products/new")
     public Product createProductList(@RequestBody Product product) {
-        productService.insert(product);
+//        productService.insert(product);
         return productService.saveProduct(product);
 //        return productRepository.save(productList);
     }
@@ -53,6 +53,11 @@ public class ProductController {
     public Double CalcTotalTax(){
         return productService.calculateTotalTax();
 //        return productRepository.getTotalTaxReceipt();
+    }
+
+    @GetMapping("/getBill")
+    public Double[] getFinalBill(){
+        return productService.getBill();
     }
 
     // handler method to handle delete product request

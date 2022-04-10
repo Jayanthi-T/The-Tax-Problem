@@ -40,8 +40,11 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.existsById(id);
     }
 
+
+
     @Override
     public Product saveProduct(Product product) {
+//        if(product.getProductType() != productRepository.)
          return productRepository.save(product);
     }
 
@@ -58,6 +61,7 @@ public class ProductServiceImpl implements ProductService {
         AtomicReference<Double> total_tax = new AtomicReference<>(0.0);
         AtomicReference<Double> total_price = new AtomicReference<>(0.0);
         AtomicReference<Double> unitPrice = new AtomicReference<>(0.0);
+
 
         List<Product> productList = getAllProducts();
         productList.forEach(product-> {
@@ -140,6 +144,23 @@ public class ProductServiceImpl implements ProductService {
 
         return total_tax.get();
 
+    }
+
+    @Override
+    public Double[] getBill(){
+
+        Double bill[];
+        bill = new Double[3];
+
+        Double total_tax = calculateTotalTax();
+        Double total_price = calculateTotalPrice();
+        Double gross_price = total_price - total_tax;
+
+        bill[0] = total_tax;
+        bill[1] = total_price;
+        bill[2] = gross_price;
+
+        return bill;
     }
 
 }

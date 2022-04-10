@@ -16,6 +16,8 @@ public interface ProductService {
     Double calculateTotalPrice();
 
     Double calculateTotalTax();
+
+    Double[] getBill();
     
     Product getProductById(Long id);
 

@@ -11,6 +11,7 @@ import java.util.List;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
+
 //    @Autowired
 //    public ProductList productList = new ProductList();
 
