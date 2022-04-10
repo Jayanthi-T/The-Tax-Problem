@@ -43,13 +43,13 @@ public class ProductController {
 //        return productRepository.save(productList);
     }
 
-    @GetMapping("/TotalPrice")
+    @GetMapping("/getTotalPrice")
     public Double CalcTotalPrice(){
         return productService.calculateTotalPrice();
 //        return productRepository.getTotalPriceReceipt();
     }
 
-    @GetMapping("/TotalTax")
+    @GetMapping("/getTotalTax")
     public Double CalcTotalTax(){
         return productService.calculateTotalTax();
 //        return productRepository.getTotalTaxReceipt();
