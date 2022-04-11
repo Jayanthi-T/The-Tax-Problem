@@ -13,7 +13,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         super();
@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
+
         return (List<Product>) productRepository.findAll();
     }
 
@@ -40,12 +41,49 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.existsById(id);
     }
 
+    @Override
+    public boolean isProductTypeExists(String productType){
+        Product product = productRepository.getByProductType(productType);
+        if(product!=null){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
+    public Product getProductDetails(String productType){
+        Product productDetails = new Product();
+        productDetails = productRepository.getByProductType(productType);
+        return productDetails;
+    }
 
     @Override
     public Product saveProduct(Product product) {
-//        if(product.getProductType() != productRepository.)
-         return productRepository.save(product);
+
+        String ProType = product.getProductType();
+        Integer ProQuan = product.getQuantity();
+        Product addedProduct = new Product();
+        Product existingProduct = new Product();
+
+            if (isProductTypeExists(ProType)) {
+
+                existingProduct = getProductDetails(ProType);
+
+                addedProduct.setId(existingProduct.getId());
+                addedProduct.setProductType(product.getProductType());
+                addedProduct.setQuantity(existingProduct.getQuantity() + product.getQuantity());
+                addedProduct.setUnitPrice(product.getUnitPrice());
+
+                addedProduct = productRepository.save(addedProduct);
+            }
+            else {
+                addedProduct = productRepository.save(product);
+            }
+        return addedProduct;
+
+//        return productRepository.save(product);
+
     }
 
 

@@ -11,6 +11,8 @@ public interface ProductService {
 
     boolean isProductExists(Long id);
 
+    boolean isProductTypeExists(String productType);
+
     Product saveProduct(Product product);
 
     Double calculateTotalPrice();

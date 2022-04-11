@@ -65,7 +65,7 @@ public class Product {
         return unitPrice;
     }
 
-    public void setUnitPrice() {
+    public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }
 
@@ -145,5 +145,6 @@ public class Product {
         }
         return total_tax;
     }
+
 
 }
