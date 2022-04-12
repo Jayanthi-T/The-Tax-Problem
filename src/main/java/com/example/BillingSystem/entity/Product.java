@@ -40,7 +40,6 @@ public class Product {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -48,7 +47,6 @@ public class Product {
     public String getProductType() {
         return productType;
     }
-
     public void setProductType(String productType) {
         this.productType = productType;
     }
@@ -56,7 +54,6 @@ public class Product {
     public Integer getQuantity() {
         return quantity;
     }
-
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
@@ -64,7 +61,6 @@ public class Product {
     public Double getUnitPrice() {
         return unitPrice;
     }
-
     public void setUnitPrice(Double unitPrice) {
         this.unitPrice = unitPrice;
     }

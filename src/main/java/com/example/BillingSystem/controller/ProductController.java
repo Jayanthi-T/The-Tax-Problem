@@ -1,5 +1,6 @@
 package com.example.BillingSystem.controller;
 
+import com.example.BillingSystem.entity.ProductSummary;
 import com.example.BillingSystem.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -58,6 +59,11 @@ public class ProductController {
     @GetMapping("/getBill")
     public Double[] getFinalBill(){
         return productService.getBill();
+    }
+
+    @GetMapping("/getBillSummary")
+    public ProductSummary getSummary(){
+        return productService.getBillSummary();
     }
 
     // handler method to handle delete product request

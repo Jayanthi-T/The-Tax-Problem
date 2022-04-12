@@ -1,11 +1,14 @@
 package com.example.BillingSystem.service.impl;
 
 import com.example.BillingSystem.entity.Product;
+import com.example.BillingSystem.entity.ProductSummary;
 import com.example.BillingSystem.repository.ProductRepository;
 import com.example.BillingSystem.service.ProductService;
+import com.fasterxml.jackson.databind.util.ArrayIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.List;
 
@@ -13,7 +16,7 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
-    private final ProductRepository productRepository;
+    ProductRepository productRepository;
 
     public ProductServiceImpl(ProductRepository productRepository) {
         super();
@@ -27,7 +30,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-
         return (List<Product>) productRepository.findAll();
     }
 
@@ -184,6 +186,13 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
+    public Double calculateGrossPrice(){
+        Double total_tax = calculateTotalTax();
+        Double total_price = calculateTotalPrice();
+        Double gross_price = total_price - total_tax;
+        return gross_price;
+    }
+
     @Override
     public Double[] getBill(){
 
@@ -200,5 +209,21 @@ public class ProductServiceImpl implements ProductService {
 
         return bill;
     }
+
+//    @Override
+//    public ProductSummary getBillSummary(){
+//        ProductSummary productsSummary = productRepository.findAll();
+////        List<Product> productList = (List<Product>) productRepository.findAll();
+//
+//        for (Product product:getAllProducts() ) {
+//            List<Product> productsList = productsSummary.getProductsSummary();
+//            productsSummary.setProductsSummary(productsList);
+//        }
+//        productsSummary.setTotalTax(calculateTotalTax());
+//        productsSummary.setTotalPrice(calculateTotalPrice());
+//        productsSummary.setGrossPrice(calculateGrossPrice());
+//
+//        return productsSummary;
+//    }
 
 }

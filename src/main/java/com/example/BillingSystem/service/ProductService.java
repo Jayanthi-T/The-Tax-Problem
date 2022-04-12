@@ -1,6 +1,7 @@
 package com.example.BillingSystem.service;
 
 import com.example.BillingSystem.entity.Product;
+import com.example.BillingSystem.entity.ProductSummary;
 
 import java.util.List;
 
@@ -24,4 +25,6 @@ public interface ProductService {
     Product getProductById(Long id);
 
     void deleteProductById(Long id);
+
+//    ProductSummary getBillSummary();
 }
