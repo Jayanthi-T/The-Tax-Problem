@@ -76,9 +76,9 @@ This GET request displays the Total Tax of the products bought.
 
 #### Get the Bill Summary
 ```
-GET  /getBill
+GET  /getBillSummary
 ```
-This GET request displays the list of bill summary that contains total tax, total price and gross price.
+This GET request displays the list of bill summary that contains the list of products, total tax, total price and gross price.
 
 ## Architectural Overview
 
