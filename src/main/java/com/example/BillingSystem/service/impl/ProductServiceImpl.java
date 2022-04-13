@@ -210,20 +210,20 @@ public class ProductServiceImpl implements ProductService {
         return bill;
     }
 
-//    @Override
-//    public ProductSummary getBillSummary(){
-//        ProductSummary productsSummary = productRepository.findAll();
-////        List<Product> productList = (List<Product>) productRepository.findAll();
-//
-//        for (Product product:getAllProducts() ) {
-//            List<Product> productsList = productsSummary.getProductsSummary();
-//            productsSummary.setProductsSummary(productsList);
-//        }
-//        productsSummary.setTotalTax(calculateTotalTax());
-//        productsSummary.setTotalPrice(calculateTotalPrice());
-//        productsSummary.setGrossPrice(calculateGrossPrice());
-//
-//        return productsSummary;
-//    }
+    @Override
+    public ProductSummary getBillSummary(){
+        ProductSummary productsSummary = new ProductSummary();
+//        List<Product> productList = (List<Product>) productRepository.findAll();
+
+        for (Product product:getAllProducts() ) {
+            List<Product> productsList = (List<Product>) productRepository.findAll();
+            productsSummary.setProductsSummary(productsList);
+        }
+        productsSummary.setTotalTax(calculateTotalTax());
+        productsSummary.setTotalPrice(calculateTotalPrice());
+        productsSummary.setGrossPrice(calculateGrossPrice());
+
+        return productsSummary;
+    }
 
 }

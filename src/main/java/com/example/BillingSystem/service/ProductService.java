@@ -26,5 +26,5 @@ public interface ProductService {
 
     void deleteProductById(Long id);
 
-//    ProductSummary getBillSummary();
+    ProductSummary getBillSummary();
 }
