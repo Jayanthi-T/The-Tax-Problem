@@ -89,7 +89,6 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-
     @Override
     public void deleteProductById(Long id) {
         productRepository.deleteById(id);
@@ -185,7 +184,7 @@ public class ProductServiceImpl implements ProductService {
         return total_tax.get();
 
     }
-
+    @Override
     public Double calculateGrossPrice(){
         Double total_tax = calculateTotalTax();
         Double total_price = calculateTotalPrice();

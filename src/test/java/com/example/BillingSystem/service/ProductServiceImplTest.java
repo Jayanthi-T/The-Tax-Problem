@@ -33,14 +33,6 @@ public class ProductServiceImplTest {
         assertNotNull(actual);
     }
 
-//    @Test
-//    public void calculateTotalPriceTest(){
-//        Product pro1 = new Product("book",2,12.49);
-//        Double expectedTotalPrice = 24.98;
-//        Double actualTotalPrice = productService.calculateTotalPrice();
-//        assertEquals(expectedTotalPrice,actualTotalPrice);
-//    }
-
     @Test
     public void getProductDetailsTest(){
         String newProType = "music CD";
@@ -48,6 +40,10 @@ public class ProductServiceImplTest {
         assertThat(pro.getProductType()).isEqualTo(newProType);
     }
 
+    @Test
+    public void getAllProductsTest(){
+        assertEquals(6,productService.getAllProducts().size());
+    }
 
     @Test
 //    @Rollback(value = false)
@@ -58,5 +54,19 @@ public class ProductServiceImplTest {
         assertEquals(6,productService.getAllProducts().size());
     }
 
+    @Test
+    public void getTotalPriceTest(){
+        assertEquals(193.302,productService.calculateTotalPrice());
+    }
+
+    @Test
+    public void getTotalTaxTest(){
+        assertEquals(39.482,productService.calculateTotalTax());
+    }
+
+    @Test
+    public void getGrossPriceTest(){
+        assertEquals(153.82,productService.calculateGrossPrice());
+    }
 
 }
