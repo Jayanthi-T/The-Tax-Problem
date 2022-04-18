@@ -16,6 +16,8 @@ public interface ProductService {
 
     Product saveProduct(Product product);
 
+    Product getProductDetails(String productType);
+
     Double calculateTotalPrice();
 
     Double calculateTotalTax();

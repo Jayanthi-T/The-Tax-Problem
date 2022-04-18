@@ -54,6 +54,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public Product getProductDetails(String productType){
         Product productDetails = new Product();
         productDetails = productRepository.getByProductType(productType);

@@ -13,9 +13,10 @@ import org.springframework.test.annotation.Rollback;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-//@DataJpaTest
+
 //@Component
 @SpringBootTest
 public class ProductServiceImplTest {
@@ -26,7 +27,7 @@ public class ProductServiceImplTest {
     @Test
     public void saveProductTest() {
 
-        Product pro = new Product("product to test save method",2,65.55);
+        Product pro = new Product("new product",2,65.55);
         productService.saveProduct(pro);
 
         assertNotNull(pro);
@@ -43,18 +44,26 @@ public class ProductServiceImplTest {
 //    }
 
     @Test
+    public void getProductDetailsTest(){
+        String newProType = "music CD";
+        Product pro = productService.getProductDetails(newProType);
+        assertThat(pro.getProductType()).isEqualTo(newProType);
+    }
+
+    @Test
 //    @Rollback(value = false)
     public void deleteProductByIdTest(){
-        Product pro = productRepository.getByProductType("new product for test");
-        productRepository.deleteById(pro.getId());
-        Product deleted = null;
-        Optional<Product> optionalProduct = Optional.ofNullable(productRepository.getByProductType("music CD"));
-        if(optionalProduct.isPresent()){
-            deleted = optionalProduct.get();
-        }
-        assertNull(deleted);
-//        Assertions.assertThat(deleted).isNull();
-
+        String proType = "new product";
+        Product pro = productService.getProductDetails(proType);
+        System.out.println(pro);
+        productService.deleteProductById(pro.getId());
+//        assertNull(pro);
+//        Product deleted = null;
+//        Optional<Product> optionalProduct = Optional.ofNullable(productRepository.getByProductType("music CD"));
+//        if(optionalProduct.isPresent()){
+//            deleted = optionalProduct.get();
+//        }
+        assertThat(pro.getId()).isNull();
 //        Product deletedProduct = productRepository.getByProductType("music CD");
 //        assertNull(deletedProduct);
     }
