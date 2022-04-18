@@ -28,20 +28,20 @@ public class ProductServiceImplTest {
     public void saveProductTest() {
 
         Product pro = new Product("new product",2,65.55);
-        productService.saveProduct(pro);
+        Product actual = productService.saveProduct(pro);
 
-        assertNotNull(pro);
+        assertNotNull(actual);
 //        Assertions.assertTrue(productService.isProductExists(pro.getId()));
     }
 
 
-//    @Test
-//    public void calculateTotalPriceTest(){
-//        Product pro1 = new Product("book",2,12.49);
-//        Double expectedTotalPrice = 24.98;
-//        Double actualTotalPrice = productService.calculateTotalPrice();
-//        assertEquals(expectedTotalPrice,actualTotalPrice);
-//    }
+    @Test
+    public void calculateTotalPriceTest(){
+        Product pro1 = new Product("book",2,12.49);
+        Double expectedTotalPrice = 24.98;
+        Double actualTotalPrice = productService.calculateTotalPrice();
+        assertEquals(expectedTotalPrice,actualTotalPrice);
+    }
 
     @Test
     public void getProductDetailsTest(){
@@ -49,6 +49,8 @@ public class ProductServiceImplTest {
         Product pro = productService.getProductDetails(newProType);
         assertThat(pro.getProductType()).isEqualTo(newProType);
     }
+
+
 
     @Test
 //    @Rollback(value = false)
