@@ -140,7 +140,6 @@ public class ProductServiceImpl implements ProductService {
         return total_price.get() + total_tax.get();
 
     }
-
     @Override
     public Double calculateTotalTax(){
 
