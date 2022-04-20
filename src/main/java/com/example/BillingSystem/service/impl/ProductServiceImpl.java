@@ -193,31 +193,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Double[] getBill(){
-
-        Double bill[];
-        bill = new Double[3];
-
-        Double total_tax = calculateTotalTax();
-        Double total_price = calculateTotalPrice();
-        Double gross_price = total_price - total_tax;
-
-        bill[0] = total_tax;
-        bill[1] = total_price;
-        bill[2] = gross_price;
-
-        return bill;
-    }
-
-    @Override
     public ProductSummary getBillSummary(){
         ProductSummary productsSummary = new ProductSummary();
-//        List<Product> productList = (List<Product>) productRepository.findAll();
 
-        for (Product product:getAllProducts() ) {
-            List<Product> productsList = (List<Product>) productRepository.findAll();
-            productsSummary.setProductsSummary(productsList);
-        }
+        List<Product> productsList = (List<Product>) productRepository.findAll();
+        productsSummary.setProductsSummary(productsList);
+
         productsSummary.setTotalTax(calculateTotalTax());
         productsSummary.setTotalPrice(calculateTotalPrice());
         productsSummary.setGrossPrice(calculateGrossPrice());
