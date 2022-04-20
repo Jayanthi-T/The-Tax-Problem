@@ -24,8 +24,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product insert(Product product){
-        return productRepository.save(product);
+    public Product insert(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product can not be null or empty.");
+        }
+        else {
+            return productRepository.save(product);
+        }
     }
 
     @Override
@@ -35,12 +40,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            return productRepository.findById(id).get();
+        }
     }
 
     @Override
     public boolean isProductExists(Long id){
-        return productRepository.existsById(id);
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            return productRepository.existsById(id);
+        }
     }
 
     @Override
@@ -56,9 +71,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductDetails(String productType){
-        Product productDetails = new Product();
-        productDetails = productRepository.getByProductType(productType);
-        return productDetails;
+        if(productType == null){
+            throw new IllegalArgumentException("ProductType can not be null or empty.");
+        }
+        else {
+            Product productDetails = new Product();
+            productDetails = productRepository.getByProductType(productType);
+            return productDetails;
+        }
     }
 
     @Override
@@ -80,6 +100,11 @@ public class ProductServiceImpl implements ProductService {
 
                 addedProduct = productRepository.save(addedProduct);
             }
+
+            else if (product == null) {
+                throw new IllegalArgumentException("Product can not be null or empty.");
+            }
+
             else {
                 addedProduct = productRepository.save(product);
             }
@@ -91,7 +116,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void deleteProductById(Long id) {
-        productRepository.deleteById(id);
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            productRepository.deleteById(id);
+        }
     }
 
     @Override
@@ -197,13 +227,18 @@ public class ProductServiceImpl implements ProductService {
         ProductSummary productsSummary = new ProductSummary();
 
         List<Product> productsList = (List<Product>) productRepository.findAll();
-        productsSummary.setProductsSummary(productsList);
+        if(productsList == null){
+            throw new IllegalArgumentException("ProductsList can not be null or empty.");
+        }
+        else {
+            productsSummary.setProductsSummary(productsList);
 
-        productsSummary.setTotalTax(calculateTotalTax());
-        productsSummary.setTotalPrice(calculateTotalPrice());
-        productsSummary.setGrossPrice(calculateGrossPrice());
+            productsSummary.setTotalTax(calculateTotalTax());
+            productsSummary.setTotalPrice(calculateTotalPrice());
+            productsSummary.setGrossPrice(calculateGrossPrice());
 
-        return productsSummary;
+            return productsSummary;
+        }
     }
 
 }
