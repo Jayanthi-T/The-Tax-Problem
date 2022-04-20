@@ -16,15 +16,17 @@ public interface ProductService {
 
     Product saveProduct(Product product);
 
+    Product getProductDetails(String productType);
+
     Double calculateTotalPrice();
 
     Double calculateTotalTax();
 
-    Double[] getBill();
+    Double calculateGrossPrice();
     
     Product getProductById(Long id);
 
     void deleteProductById(Long id);
 
-//    ProductSummary getBillSummary();
+    ProductSummary getBillSummary();
 }

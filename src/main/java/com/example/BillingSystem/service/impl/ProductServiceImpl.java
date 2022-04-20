@@ -24,8 +24,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product insert(Product product){
-        return productRepository.save(product);
+    public Product insert(Product product) {
+        if (product == null) {
+            throw new IllegalArgumentException("Product can not be null or empty.");
+        }
+        else {
+            return productRepository.save(product);
+        }
     }
 
     @Override
@@ -35,12 +40,22 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getProductById(Long id) {
-        return productRepository.findById(id).get();
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            return productRepository.findById(id).get();
+        }
     }
 
     @Override
     public boolean isProductExists(Long id){
-        return productRepository.existsById(id);
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            return productRepository.existsById(id);
+        }
     }
 
     @Override
@@ -54,10 +69,16 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 
+    @Override
     public Product getProductDetails(String productType){
-        Product productDetails = new Product();
-        productDetails = productRepository.getByProductType(productType);
-        return productDetails;
+        if(productType == null){
+            throw new IllegalArgumentException("ProductType can not be null or empty.");
+        }
+        else {
+            Product productDetails = new Product();
+            productDetails = productRepository.getByProductType(productType);
+            return productDetails;
+        }
     }
 
     @Override
@@ -79,6 +100,11 @@ public class ProductServiceImpl implements ProductService {
 
                 addedProduct = productRepository.save(addedProduct);
             }
+
+            else if (product == null) {
+                throw new IllegalArgumentException("Product can not be null or empty.");
+            }
+
             else {
                 addedProduct = productRepository.save(product);
             }
@@ -88,10 +114,14 @@ public class ProductServiceImpl implements ProductService {
 
     }
 
-
     @Override
     public void deleteProductById(Long id) {
-        productRepository.deleteById(id);
+        if(id==0){
+            throw new IllegalArgumentException("ProductId can not be null or empty.");
+        }
+        else {
+            productRepository.deleteById(id);
+        }
     }
 
     @Override
@@ -140,7 +170,6 @@ public class ProductServiceImpl implements ProductService {
         return total_price.get() + total_tax.get();
 
     }
-
     @Override
     public Double calculateTotalTax(){
 
@@ -185,7 +214,7 @@ public class ProductServiceImpl implements ProductService {
         return total_tax.get();
 
     }
-
+    @Override
     public Double calculateGrossPrice(){
         Double total_tax = calculateTotalTax();
         Double total_price = calculateTotalPrice();
@@ -194,36 +223,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Double[] getBill(){
+    public ProductSummary getBillSummary(){
+        ProductSummary productsSummary = new ProductSummary();
 
-        Double bill[];
-        bill = new Double[3];
+        List<Product> productsList = (List<Product>) productRepository.findAll();
+        if(productsList == null){
+            throw new IllegalArgumentException("ProductsList can not be null or empty.");
+        }
+        else {
+            productsSummary.setProductsSummary(productsList);
 
-        Double total_tax = calculateTotalTax();
-        Double total_price = calculateTotalPrice();
-        Double gross_price = total_price - total_tax;
+            productsSummary.setTotalTax(calculateTotalTax());
+            productsSummary.setTotalPrice(calculateTotalPrice());
+            productsSummary.setGrossPrice(calculateGrossPrice());
 
-        bill[0] = total_tax;
-        bill[1] = total_price;
-        bill[2] = gross_price;
-
-        return bill;
+            return productsSummary;
+        }
     }
-
-//    @Override
-//    public ProductSummary getBillSummary(){
-//        ProductSummary productsSummary = productRepository.findAll();
-////        List<Product> productList = (List<Product>) productRepository.findAll();
-//
-//        for (Product product:getAllProducts() ) {
-//            List<Product> productsList = productsSummary.getProductsSummary();
-//            productsSummary.setProductsSummary(productsList);
-//        }
-//        productsSummary.setTotalTax(calculateTotalTax());
-//        productsSummary.setTotalPrice(calculateTotalPrice());
-//        productsSummary.setGrossPrice(calculateGrossPrice());
-//
-//        return productsSummary;
-//    }
 
 }

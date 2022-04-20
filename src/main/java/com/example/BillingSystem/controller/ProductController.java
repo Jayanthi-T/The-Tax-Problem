@@ -56,11 +56,6 @@ public class ProductController {
 //        return productRepository.getTotalTaxReceipt();
     }
 
-    @GetMapping("/getBill")
-    public Double[] getFinalBill(){
-        return productService.getBill();
-    }
-
     @GetMapping("/getBillSummary")
     public ProductSummary getSummary(){
         return productService.getBillSummary();
