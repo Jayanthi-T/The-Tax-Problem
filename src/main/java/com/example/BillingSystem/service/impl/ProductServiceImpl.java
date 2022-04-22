@@ -115,6 +115,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product updateProduct(Product product) {
+        return productRepository.save(product);
+    }
+
+    @Override
     public void deleteProductById(Long id) {
         if(id==0){
             throw new IllegalArgumentException("ProductId can not be null or empty.");
