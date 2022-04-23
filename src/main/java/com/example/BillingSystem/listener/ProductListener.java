@@ -32,7 +32,7 @@ public class ProductListener {
                 productService.saveProduct(map.getPayload());
             }
             else if(map.getReqType().equalsIgnoreCase("UPDATE")){
-                productService.updateProduct(map.getPayload());
+                productService.updateProduct(map.getPayload(),map.getId());
             }
             else{
                 productService.deleteProductById(map.getId());

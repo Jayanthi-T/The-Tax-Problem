@@ -84,39 +84,46 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product saveProduct(Product product) {
 
-        String ProType = product.getProductType();
-        Integer ProQuan = product.getQuantity();
-        Product addedProduct = new Product();
-        Product existingProduct = new Product();
+//        String ProType = product.getProductType();
+//        Integer ProQuan = product.getQuantity();
+//        Product addedProduct = new Product();
+//        Product existingProduct = new Product();
+//
+//            if (isProductTypeExists(ProType)) {
+//
+//                existingProduct = getProductDetails(ProType);
+//
+//                addedProduct.setId(existingProduct.getId());
+//                addedProduct.setProductType(product.getProductType());
+//                addedProduct.setQuantity(existingProduct.getQuantity() + product.getQuantity());
+//                addedProduct.setUnitPrice(product.getUnitPrice());
+//
+//                addedProduct = productRepository.save(addedProduct);
+//            }
+//
+//            else if (product == null) {
+//                throw new IllegalArgumentException("Product can not be null or empty.");
+//            }
+//
+//            else {
+//                addedProduct = productRepository.save(product);
+//            }
+//        return addedProduct;
 
-            if (isProductTypeExists(ProType)) {
-
-                existingProduct = getProductDetails(ProType);
-
-                addedProduct.setId(existingProduct.getId());
-                addedProduct.setProductType(product.getProductType());
-                addedProduct.setQuantity(existingProduct.getQuantity() + product.getQuantity());
-                addedProduct.setUnitPrice(product.getUnitPrice());
-
-                addedProduct = productRepository.save(addedProduct);
-            }
-
-            else if (product == null) {
-                throw new IllegalArgumentException("Product can not be null or empty.");
-            }
-
-            else {
-                addedProduct = productRepository.save(product);
-            }
-        return addedProduct;
-
-//        return productRepository.save(product);
+        return productRepository.save(product);
 
     }
 
     @Override
-    public Product updateProduct(Product product) {
-        return productRepository.save(product);
+    public Product updateProduct(Product product,Long id) {
+
+        Product existingProduct = getProductById(id);
+        existingProduct.setId(id);
+        existingProduct.setProductType(product.getProductType());
+        existingProduct.setQuantity(product.getQuantity());
+        existingProduct.setUnitPrice(product.getUnitPrice());
+
+        return productRepository.save(existingProduct);
     }
 
     @Override

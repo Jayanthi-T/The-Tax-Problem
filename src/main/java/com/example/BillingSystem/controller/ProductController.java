@@ -62,7 +62,7 @@ public class ProductController {
         existingProduct.setQuantity(product.getQuantity());
         existingProduct.setUnitPrice(product.getUnitPrice());
 
-        return productService.updateProduct(existingProduct);
+        return productService.updateProduct(existingProduct,id);
     }
 
     @PostMapping("/products")
