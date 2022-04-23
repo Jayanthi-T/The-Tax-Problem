@@ -29,12 +29,15 @@ public class ProductListener {
             productMessage map = (productMessage) mapper.readValue(product, productMessage.class);
 
             if(map.getReqType().equalsIgnoreCase("ADD")) {
+                System.out.println(map.getPayload().getProductType()+" added successfully.");
                 productService.saveProduct(map.getPayload());
             }
             else if(map.getReqType().equalsIgnoreCase("UPDATE")){
+                System.out.println(map.getPayload().getProductType()+" updated successfully.");
                 productService.updateProduct(map.getPayload(),map.getId());
             }
             else{
+                System.out.println(map.getPayload().getProductType()+" deleted successfully.");
                 productService.deleteProductById(map.getId());
             }
 
